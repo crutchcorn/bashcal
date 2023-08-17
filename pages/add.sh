@@ -14,4 +14,6 @@ fi
 
 echo "$MONTH $YEAR" > data/month
 
-component '/calendar'
+CALENDAR=$(component "/calendar" | tr '\n' ' ')
+printf "event: calendar\ndata: %s\n\n" "$CALENDAR" \
+    | publish "calendar"
