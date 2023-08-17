@@ -12,6 +12,7 @@ fi
 ITEMS=$(awk '{ print "<li>"$0"</li>" }' data/$DATE)
 htmx_page << EOF
     <div id="sidebar">
+        <h2>${DATE}</h2>
         <ul>
             ${ITEMS}
         </ul>

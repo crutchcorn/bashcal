@@ -7,4 +7,6 @@ htmx_page << EOF
   <div hx-sse="connect:/sse swap:calendar">
     $(component '/calendar')
   </div>
+  <div id="sidebar">
+  </div>
 EOF

@@ -4,6 +4,8 @@ if [[ ! -f data/month ]]; then
 fi
 
 CAL_ARGS=$(cat data/month)
+MONTH=$(awk '{ print $1 }' data/month)
+YEAR=$(awk '{ print $2 }' data/month)
 if [[ "$CAL_ARGS" == "$(date +"%-m %-Y")" ]]; then
     DAY=$(date +"%-d")
     CURSED_CSS='
@@ -21,7 +23,7 @@ CALENDAR_BODY=$(cal $CAL_ARGS \
   | tail -n +3 \
   | head -n -1 \
   | sed 's@^\(.\{2\}\)\s\(.\{2\}\)\s\(.\{2\}\)\s\(.\{2\}\)\s\(.\{2\}\)\s\(.\{2\}\)\s\(.\{2\}\)\s*$@<td id="date-\1">\1</td><td id="date-\2">\2</td><td id="date-\3">\3</td><td id="date-\4">\4</td><td id="date-\5">\5</td><td id="date-\6">\6</td><td id="date-\7">\7</td>@g' \
-  | sed 's@id="date-\s*\([0-9]*\)"@id="date-\1"@g' \
+  | sed 's@id="date-\s*\([0-9]*\)"@id="date-\1" hx-get="/date/'$YEAR-$MONTH-'\1" hx-target="#sidebar" @g' \
   | awk '{ print "<tr>"$0"</tr>" }')
 
 #^(?:\s(\w)|(\w{2})|()\s{2})\s$
